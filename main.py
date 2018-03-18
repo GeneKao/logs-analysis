@@ -25,9 +25,14 @@ answers = {
 
 
 class Reporter:
+    """Class as a news reporter, give it dbname, questions and answers to write report
+
+    Attributes:
+        dbname (str): the name of the databases to connect
+    """
 
     def __init__(self, dbname):
-        "Initieal function"
+        """Initial function, connect to db"""
         self.db = connect('dbname={}'.format(dbname))
         self.cursor = self.db.cursor()
         print("Connection Successful")
@@ -36,14 +41,17 @@ class Reporter:
         return self
 
     def run_query(self, query):
+        """Execute the query"""
         self.cursor.execute(query)
         return self.cursor.fetchall()
 
     def write_report(self, ques, ans):
+        """Print out the report"""
         print(ques)
         print(self.run_query(ans))
 
     def __exit__(self, exc_type, exc_value, traceback):
+        """Exit the db"""
         if self.db:
             self.db.close()
             print("Exiting DB")
