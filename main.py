@@ -24,15 +24,21 @@ answers = {
 }
 
 
-class Reporter:
-    """Class as a news reporter, give it dbname, questions and answers to write report
+class Reporter(object):
+    """Class as a news reporter, give it questions and answers to write report
 
     Attributes:
-        dbname (str): the name of the databases to connect
+       db (obj): database object
+       cursor (obj): cursor from database
     """
 
     def __init__(self, dbname):
-        """Initial function, connect to db"""
+        """Initial function, connect to db.
+
+        Args:
+           dbname (str): the name of the databases to connect.
+
+        """
         self.db = connect('dbname={}'.format(dbname))
         self.cursor = self.db.cursor()
         print("Connection Successful")
@@ -41,7 +47,17 @@ class Reporter:
         return self
 
     def run_query(self, query):
-        """Execute the query"""
+        """Execute the query
+
+        Note:
+            This is the method to execute the query.
+
+        Args:
+            query (string): postgresql query string.
+
+        Returns:
+            string: Qeury result.
+        """
         self.cursor.execute(query)
         return self.cursor.fetchall()
 
@@ -61,5 +77,5 @@ if __name__ == '__main__':
     print("This is logs analysis program, analysising...")
     with Reporter("news") as reporter:
         reporter.write_report(questions["Q1"], answers["A1"])
-        reporter.write_report(questions["Q2"], answers["A2"])
-        reporter.write_report(questions["Q3"], answers["A3"])
+        # reporter.write_report(questions["Q2"], answers["A2"])
+        # reporter.write_report(questions["Q3"], answers["A3"])
