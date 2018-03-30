@@ -7,7 +7,6 @@ Example:
     and this will generate output.txt file as report.
 
         $ python3 main.py
-
 """
 
 __author__ = "Gene Ting-Chun Kao"
