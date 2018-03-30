@@ -1,5 +1,18 @@
 #!/usr/bin/env python3
 
+"""This is the main code to analyse
+
+Example:
+    To run this code using python3 on the console,
+    and this will generate output.txt file as report.
+
+        $ python3 main.py
+
+"""
+
+__author__ = "Gene Ting-Chun Kao"
+__email__ = "kao.gene@gmail.com"
+
 from psycopg2 import connect
 
 
@@ -53,9 +66,9 @@ class Reporter(object):
     """Class as a news reporter, give it questions and answers to write report
 
     Attributes:
+       file_name (str): output file name
        _db (obj): database object
        _cursor (obj): cursor from database
-       file_name (str): output file name
     """
 
     def __init__(self, db_name, output_file):
@@ -75,16 +88,16 @@ class Reporter(object):
         return self
 
     def _run_query(self, query):
-        """Execute the query
+        """Run input query
 
         Note:
             This is the method to execute the query.
 
         Args:
-            query (string): postgresql query string.
+            query (str): postgresql query string.
 
         Returns:
-            (string): Qeury result in string
+            (str): Qeury result in string
         """
         self._cursor.execute(query)
         return self._cursor.fetchall()
@@ -99,9 +112,10 @@ class Reporter(object):
         """Print out the report
 
         Args:
-            ques (string): Question
-            ans (string): Answers
-
+            ques (str): Question
+            ques_type (str): question types for format
+            ans (str): Answers
+            num (int): index number of this report
         """
         print(self._run_query(ans))
         results = self._run_query(ans)
@@ -131,9 +145,9 @@ class Reporter(object):
         """Publish the report
 
         Args:
-            ques (:list: string): A list of questions
-            ans (:list: string): A list of answers
-
+            questions (:list: str): A list of questions
+            question_types (:list: str) A list of quesiton types
+            answers (:list: str): A list of answers
         """
         self._prepare_report()  # Clean up file first
 
